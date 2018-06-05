@@ -50,6 +50,7 @@
   service:
       name: "{{ item }}"
       state: started
+      enabled: yes
   loop: "{{ air_land_active_services }}"
   when: ansible_distribution != 'MacOSX'
 
@@ -57,5 +58,6 @@
   service:
       name: "{{ item }}.timer"
       state: started
+      enabled: yes
   loop: "{{ air_land_active_timers }}"
   when: ansible_distribution != 'MacOSX'
