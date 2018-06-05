@@ -1,0 +1,19 @@
+---
+ansible_python_interpreter: "/usr/bin/env python"
+
+docker_compose_interpreter: "docker-compose"
+
+air_land_dirs:
+  - /etc/air-land
+
+air_land_config_root: /etc/air-land
+air_land_sync_files: false
+air_land_project:
+
+air_land_active_services: []
+air_land_active_timers: []
+
+air_land_deactive_services: []
+air_land_deactive_timers: []
+
+air_land_template_root: "templates/air-lands"
