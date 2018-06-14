@@ -16,4 +16,4 @@ air_land_active_timers: []
 air_land_deactive_services: []
 air_land_deactive_timers: []
 
-air_land_template_root: "templates/air-lands"
+air_land_template_root: "./templates"
