@@ -16,7 +16,7 @@ Config
 ansible.cfg
 
 ```
-filter_plugins  = plugins/filter
+filter_plugins  = roles/wangwenpei.air-land/plugins/filter
 ```
 
 
