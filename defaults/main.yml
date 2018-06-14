@@ -1,7 +1,7 @@
 ---
 ansible_python_interpreter: "/usr/bin/env python"
 
-docker_compose_interpreter: "docker-compose"
+docker_compose_interpreter: "/usr/bin/docker-compose"
 
 air_land_dirs:
   - /etc/air-land
