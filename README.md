@@ -11,6 +11,15 @@ Install
 ansible-galaxy install wangwenpei.air-land
 ```
 
+Config
+----------
+ansible.cfg
+
+```
+filter_plugins  = plugins/filter
+```
+
+
 Role Variables
 --------------
 
@@ -20,7 +29,7 @@ air_land_template_root: "<template-root>"
 air_land_active_services:
   - services-name-1
   - services-name-2
-docker_compose_interpreter: "docker-compose"
+docker_compose_interpreter: "/usr/bin/docker-compose"
 
 ```
 

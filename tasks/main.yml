@@ -21,14 +21,14 @@
     state: directory
     mode: "{{ item.mode }}"
   with_filetree: "{{ air_land_template_root }}/"
-  when: air_land_project and item.state == 'directory'
+  when: air_land_project == item.path|basename and item.state == 'directory'
 
 - name: Render config files
   template:
     src: "{{ item.src }}"
     dest: "{{ air_land_config_root }}/{{ item.path }}"
   with_filetree: "{{ air_land_template_root }}"
-  when: air_land_project and item.state == 'file'
+  when: air_land_project == item.path|parentname and item.state == 'file'
 
 - name: Copy simple service
   copy:
@@ -49,7 +49,7 @@
 - name: Enable simple service
   service:
       name: "{{ item }}"
-      state: started
+      state: "{{ air_land_service_status | default('started') }}"
       enabled: yes
   loop: "{{ air_land_active_services }}"
   when: ansible_distribution != 'MacOSX'
@@ -57,7 +57,37 @@
 - name: Enable timer service
   service:
       name: "{{ item }}.timer"
-      state: started
+      state: "{{ air_land_timer_status | default('started') }}"
       enabled: yes
   loop: "{{ air_land_active_timers }}"
+  when: ansible_distribution != 'MacOSX'
+
+- name: Disable timer service
+  service:
+      name: "{{ item }}.timer"
+      state: stopped
+      enabled: no
+  loop: "{{ air_land_deactive_timers }}"
+  when: ansible_distribution != 'MacOSX'
+
+- name: Disable simple service
+  service:
+      name: "{{ item }}.timer"
+      state: stopped
+      enabled: no
+  loop: "{{ air_land_deactive_timers }}"
+  when: ansible_distribution != 'MacOSX'
+
+- name: Clean timer service
+  file:
+      path: "/etc/systemd/system/{{ item }}.timer"
+      state: absent
+  loop: "{{ air_land_deactive_timers }}"
+  when: ansible_distribution != 'MacOSX'
+
+- name: Clean simple service
+  file:
+      path: "/etc/systemd/system/{{ item }}.service"
+      state: absent
+  loop: "{{ air_land_deactive_services }}"
   when: ansible_distribution != 'MacOSX'
