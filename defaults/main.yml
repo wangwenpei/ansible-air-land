@@ -5,8 +5,11 @@ docker_compose_interpreter: "/usr/bin/docker-compose"
 
 air_land_dirs:
   - /etc/air-land
+  - /data/air-land
 
 air_land_config_root: /etc/air-land
+air_land_storage_root: /data/air-land
+
 air_land_sync_files: false
 air_land_project:
 
