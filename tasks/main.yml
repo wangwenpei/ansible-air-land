@@ -11,7 +11,7 @@
 
 - name: Sync config files
   synchronize:
-    src: "air-lands/{{ air_land_project }}/"
+    src: "{{ air_land_project }}/"
     dest: "{{ air_land_config_root }}/{{ air_land_project }}/"
   when: air_land_sync_files
 
