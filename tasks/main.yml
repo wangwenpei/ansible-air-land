@@ -5,6 +5,7 @@
   loop:
     - "{{ air_land_config_root }}"
     - "{{ air_land_storage_root }}"
+    - "{{ air_land_backup_root }}"
 
 - name: Sync config files
   synchronize:
