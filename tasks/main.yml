@@ -1,13 +1,10 @@
-- name: Ensure data dir
+- name: Ensure Directories
   file:
     path: "{{ item }}"
     state: directory
-  loop: "{{ air_land_dirs }}"
-
-- name: Ensure parent dir
-  file:
-    path: "{{ air_land_config_root }}"
-    state: directory
+  loop:
+    - "{{ air_land_config_root }}"
+    - "{{ air_land_storage_root }}"
 
 - name: Sync config files
   synchronize:

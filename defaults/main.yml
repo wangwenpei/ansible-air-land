@@ -3,10 +3,6 @@ ansible_python_interpreter: "/usr/bin/env python"
 
 docker_compose_interpreter: "/usr/bin/docker-compose"
 
-air_land_dirs:
-  - /etc/air-land
-  - /data/air-land
-
 air_land_config_root: /etc/air-land
 air_land_storage_root: /data/air-land
 
