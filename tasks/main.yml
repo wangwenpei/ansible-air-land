@@ -18,14 +18,14 @@
     path: "{{ air_land_config_root }}/{{ item.path }}"
     state: directory
     mode: "{{ item.mode }}"
-  with_filetree: "{{ air_land_template_root }}/"
+  with_filetree: "{{ air_land_template_root | default(inventory_dir) }}/"
   when: air_land_project == item.path|basename and item.state == 'directory'
 
 - name: Render config files
   template:
     src: "{{ item.src }}"
     dest: "{{ air_land_config_root }}/{{ item.path }}"
-  with_filetree: "{{ air_land_template_root }}"
+  with_filetree: "{{ air_land_template_root | default(inventory_dir) }}"
   when: air_land_project == item.path|parentname and item.state == 'file'
 
 - name: Copy simple service
