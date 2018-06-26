@@ -16,4 +16,6 @@ air_land_active_timers: []
 air_land_deactive_services: []
 air_land_deactive_timers: []
 
+air_land_always_update: no
+air_land_force_daemon_reload: no
 air_land_template_root:

@@ -49,7 +49,7 @@
       name: "{{ item }}"
       state: "{{ air_land_service_status | default('started') }}"
       enabled: yes
-      daemon_reload: "{% if air_land_service_status not in ('stopped','restarted') -%}yes{% else -%}no{% endif -%}"
+      daemon_reload: "{% if air_land_force_daemon_reload == 'yes' or air_land_service_status not in ('stopped','restarted') -%}yes{% else -%}no{% endif -%}"
   loop: "{{ air_land_active_services }}"
   when: ansible_distribution != 'MacOSX'
 
@@ -58,7 +58,7 @@
       name: "{{ item }}.timer"
       state: "{{ air_land_timer_status | default('started') }}"
       enabled: yes
-      daemon_reload: "{% if air_land_service_status not in ('stopped','restarted') -%}yes{% else -%}no{% endif -%}"
+      daemon_reload: "{% if air_land_force_daemon_reload == 'yes' or air_land_service_status not in ('stopped','restarted') -%}yes{% else -%}no{% endif -%}"
   loop: "{{ air_land_active_timers }}"
   when: ansible_distribution != 'MacOSX'
 
