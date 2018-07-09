@@ -19,5 +19,6 @@ air_land_deactive_timers: []
 air_land_service_status: started
 air_land_timer_status: started
 air_land_always_update: no
-air_land_force_daemon_reload: no
+air_land_force_daemon_reload: yes
+air_land_systemd: no
 air_land_template_root:

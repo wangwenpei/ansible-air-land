@@ -34,7 +34,7 @@
       dest: "/etc/systemd/system/{{ item }}.service"
       remote_src: yes
   loop: "{{ air_land_active_services }}"
-  when: ansible_distribution != 'MacOSX'
+  when: air_land_systemd == 'yes' and ansible_distribution != 'MacOSX'
 
 - name: Copy timer service
   copy:
@@ -51,7 +51,7 @@
       enabled: yes
       daemon_reload: "{% if air_land_force_daemon_reload == 'yes' or air_land_service_status not in ('stopped','restarted') -%}yes{% else -%}no{% endif -%}"
   loop: "{{ air_land_active_services }}"
-  when: ansible_distribution != 'MacOSX'
+  when: air_land_systemd == 'yes' and ansible_distribution != 'MacOSX'
 
 - name: Enable timer service
   service:
@@ -69,14 +69,16 @@
       enabled: no
   loop: "{{ air_land_deactive_timers }}"
   when: ansible_distribution != 'MacOSX'
+  ignore_errors: True
 
 - name: Disable simple service
   service:
       name: "{{ item }}.timer"
       state: stopped
       enabled: no
-  loop: "{{ air_land_deactive_timers }}"
+  loop: "{{ air_land_deactive_services }}"
   when: ansible_distribution != 'MacOSX'
+  ignore_errors: True
 
 - name: Clean timer service
   file:
@@ -84,6 +86,7 @@
       state: absent
   loop: "{{ air_land_deactive_timers }}"
   when: ansible_distribution != 'MacOSX'
+  ignore_errors: True
 
 - name: Clean simple service
   file:
@@ -91,3 +94,27 @@
       state: absent
   loop: "{{ air_land_deactive_services }}"
   when: ansible_distribution != 'MacOSX'
+  ignore_errors: True
+
+- name: Try Pull Images
+  command: "{{ docker_compose_interpreter }} -f docker-compose.yml pull"
+  args:
+      chdir: "{{ air_land_config_root }}/{{ item }}"
+  loop: "{{ air_land_active_services }}"
+  when: air_land_systemd != 'yes' and air_land_service_status == 'restarted'
+
+- name: Try Stop Services
+  command: "{{ docker_compose_interpreter }} -f docker-compose.yml down"
+  args:
+      chdir: "{{ air_land_config_root }}/{{ item }}"
+  loop: "{{ air_land_active_services }}"
+  when: air_land_systemd != 'yes' and air_land_service_status in ['restarted','stopped']
+
+- name: Try Start Services
+  command: "{{ docker_compose_interpreter }} -f docker-compose.yml up --remove-orphan -d"
+  args:
+      chdir: "{{ air_land_config_root }}/{{ item }}"
+  loop: "{{ air_land_active_services }}"
+  when: air_land_systemd != 'yes' and air_land_service_status in ['restarted','started']
+
+
