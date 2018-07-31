@@ -8,7 +8,7 @@ Install
 -------
 
 ```
-ansible-galaxy install wangwenpei.air-land
+ansible-galaxy install wangwenpei.airland
 ```
 
 Config
@@ -16,7 +16,7 @@ Config
 ansible.cfg
 
 ```
-filter_plugins  = roles/wangwenpei.air-land/plugins/filter
+filter_plugins  = roles/wangwenpei.airland/plugins/filter
 ```
 
 
@@ -32,12 +32,6 @@ air_land_active_services:
 docker_compose_interpreter: "/usr/bin/docker-compose"
 
 ```
-
-Requirements
-------------------
-
-- `$templates/air-lands` must be existed.
-
 
 Example Playbook
 ----------------
@@ -60,6 +54,16 @@ Example Playbook
 
   tags: "hello-world"
 ```
+
+
+Known Bug
+------------------
+
+1. you have to set `air_land_template_root` if your ansible workflow stuck. 
+
+    ```
+    -e air_land_template_root=`pwd`/templates
+    ```
 
 
 License
