@@ -15,8 +15,10 @@ ANSIBLE_METADATA = {
     'supported_by': 'stormxx'
 }
 
+
 def parentname(value):
     return os.path.basename(str(value).rsplit('/', 1)[0])
+
 
 # ---- Ansible filters ----
 class FilterModule(object):
