@@ -116,5 +116,3 @@
       chdir: "{{ air_land_config_root }}/{{ item }}"
   loop: "{{ air_land_active_services }}"
   when: air_land_systemd != 'yes' and air_land_service_status in ['restarted','started']
-
-
