@@ -1,7 +1,11 @@
-Ansible-Air-Land
+「Deprecated」Ansible-Air-Land
 ========================================================================================
 
+**This project was deprecated.**
+**We suggest you use Kubernetes and [wangwenpei.docker](https://github.com/wangwenpei/ansible-docker) to maint your container environment. **
+
 Deploy docker use docker-compose and manage by systemd.
+
 
 
 Install
