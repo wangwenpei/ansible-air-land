@@ -1,12 +1,13 @@
 Ansible-Air-Land
 ========================================================================================
 
+Deploy docker use docker-compose and manage by systemd.
+
 **This project was deprecated.**
 
-We suggest you use Kubernetes and [wangwenpei.docker](https://github.com/wangwenpei/ansible-docker) to maint your container environment.
+> We suggest you use Kubernetes and [wangwenpei.docker](https://github.com/wangwenpei/ansible-docker) to maint your container environment. 
 
 
-Deploy docker use docker-compose and manage by systemd.
 
 
 
